@@ -120,21 +120,3 @@ twoSum(nums, target)
 // }
 
 // twoSum(nums, target);
-
-
-
-
-// your code goes here
-
-function chekLucky(str) {
-    let x = str.split("")
-    console.log(x[6])
-}
-
-chekLucky("bhavesh")
-
-
-const S = "abcdefghij";
-
-const luckyLetter = S[6];
-console.log(luckyLetter);
