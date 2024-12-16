@@ -161,3 +161,129 @@ const myFunc = makeFunc();
 
 
 
+
+
+
+// Given an integer array arr and a mapping function fn,
+// return a new array with a transformation applied to each element.
+
+// The returned array should be created such that returnedArray[i] = fn(arr[i], i).
+
+// Please solve it without the built -in Array.map method.
+
+
+
+
+// console.log(transformArray(arr, fn)); // Output: [0, 2, 6, 12]
+
+// console.log(10 + '20')
+// console.log('20' + 10)
+// console.log(true - (-true))
+// console.log("bhavesh" - true)
+
+
+// ++++++++++++++++++++++++++++++++++++
+// promise 
+
+// // creating a promise 
+// const promiseOne = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         console.log("Print bhavesh")
+//         resolve()
+//     }, 2000);
+// })
+
+
+// // consuming the promise 
+// promiseOne
+//     .then(() => {
+//         console.log("promise consumed")
+//     })
+//     .catch(() => {
+//         console.log("promise not consumed")
+//     })
+
+// new Promise((res, rej) => {
+//     setTimeout(() => {
+
+//         console.log("promise two")
+//     }, 1000);
+//     res()
+// }).then(function () {
+//     console.log('promise consumed')
+// })
+
+
+
+const promiseThree = new Promise(function (resolve, reject) {
+    setTimeout(() => {
+        resolve({ username: "bhavesh", email: "Zalke@gmail.com" })
+    }, 100);
+})
+
+
+// promiseThree.then(function (user) {
+//     console.log(user.username)
+//     console.log(user.email)
+// })
+
+
+
+const promiseFour = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        let error = false
+        if (!error) {
+            resolve({ username: "bhavesh" })
+        } else {
+            reject('Error :Something went wronge')
+        }
+    }, 1000);
+})
+
+
+// promiseFour
+//     .then(function (user) {
+//         console.log(user)
+//         return user.username
+//     })
+//     .then((name) => console.log(name))
+//     .catch(function (err) {
+//         console.log(err)
+//     })
+//     .finally(() => console.log("this is executed always"))
+
+
+
+
+const promiseFith = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        let error = false
+        if (!error) {
+            resolve({ username: "vaishnavi" })
+        } else {
+            reject('Error :Something went wronge')
+        }
+    }, 1000);
+})
+
+
+async function consumedPromiseFive() {
+    const response = await promiseFith
+    console.log(response)
+}
+
+// consumedPromiseFive()
+
+async function getAllUser() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users')
+    const data = await response.json()
+    console.log(data)
+}
+
+getAllUser()
+
+fetch('https://jsonplaceholder.typicode.com/users')
+    .then((res) => {
+        return res.json()
+    })
+    .then((data) => console.log(data))
