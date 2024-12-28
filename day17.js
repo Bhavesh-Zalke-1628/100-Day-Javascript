@@ -48,24 +48,24 @@
 // me.name = 'Matthew'; // "name" is a property set on "me", but not on "person"
 // me.isHuman = true; // Inherited properties can be overwritten
 
-// console.log(person)
+console.log(person)
 
-// me.printIntroduction();
-// // Expected output: "My name is Matthew. Am I human? true"
-
-
+me.printIntroduction();
+// Expected output: "My name is Matthew. Am I human? true"
 
 
 
 
-// const obj = new Object({
-//     name: "Golu",
-//     rol: -1
-// })
 
 
-// console.log(Object.isFrozen())
-// obj['feature'] = true
+const obj = new Object({
+    name: "Golu",
+    rol: -1
+})
+
+
+console.log(Object.isFrozen())
+obj['feature'] = true
 // console.log(obj)
 
 [a, b, c, d] = [1, 2, 3]

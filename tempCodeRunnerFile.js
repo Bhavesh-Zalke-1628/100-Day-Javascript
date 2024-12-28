@@ -1,1 +1,4 @@
-name
+
+// console.log(
+//     Object.entries(obj)
+// )
