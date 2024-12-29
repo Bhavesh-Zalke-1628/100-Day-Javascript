@@ -1,4 +1,1 @@
-
-// console.log(
-//     Object.entries(obj)
-// )
+key
