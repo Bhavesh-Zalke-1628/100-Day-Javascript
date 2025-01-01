@@ -29,3 +29,12 @@ let res = Object.fromEntries(data)
 console.log(
     console.log(res)
 )
+
+
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function (input) {
+    const nums = input.trim().split('\n');
+    let x = parseInt(nums[0]); day
+    let y = parseInt(nums[1]);
+    // Complete the code
+});
