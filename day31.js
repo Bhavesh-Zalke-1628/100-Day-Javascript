@@ -16,4 +16,4 @@ function swapedObject() {
 }
 
 
-console.log(swapedObject(obj))
+console.log(swapedObject)
