@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🍔 Burger Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* --- [Your existing advanced CSS exactly as you posted above] --- */
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --blur-bg: rgba(255, 236, 210, 0.6);
+            --primary: #ff6347;
+            --accent: #ffecd2;
+            --dark: #222;
+            --transition: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            margin: 0;
+            min-height: 100vh;
+            padding: 100px 0 30px 0;
+            transition: background .3s;
+        }
+
+        body.dark {
+            background: linear-gradient(to right, #222, #4a2b27);
+            color: #fff;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            left: 0;
+            background: var(--blur-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 40px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            list-style: none;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color .2s;
+        }
+
+        body.dark .nav-menu li a {
+            color: #fff;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--primary);
+        }
+
+        .hamburger,
+        .toggle-theme {
+            display: none;
+            cursor: pointer;
+        }
+
+        .fa-sun,
+        .fa-moon {
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 750px) {
+            .navbar {
+                padding: 12px 12px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100vw;
+                top: 60px;
+                width: 100vw;
+                background: var(--card-bg);
+                flex-direction: column;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+                gap: 0;
+                min-height: 140px;
+            }
+
+            .nav-menu.active {
+                left: 0;
+                transition: left .3s;
+            }
+
+            .nav-menu li {
+                border-bottom: 1px solid #e5e5e599;
+                width: 100%;
+                text-align: center;
+                padding: 16px 0;
+            }
+
+            .nav-menu li a {
+                display: block;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        .hamburger i {
+            font-size: 2rem;
+            color: var(--primary);
+            transition: .3s;
+        }
+
+        .hamburger.active i {
+            transform: rotate(90deg);
+        }
+
+        .toggle-theme {
+            display: inline-block;
+            margin-left: 22px;
+            color: var(--primary);
+        }
+
+        body.dark .toggle-theme {
+            color: #fff;
+        }
+
+        h1 {
+            margin-top: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        body.dark h1 {
+            color: #fff;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 30px;
+            max-width: 1250px;
+            padding: 20px;
+            margin: auto;
+            animation: fadeIn 0.8s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .burger-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+            overflow: hidden;
+            transition: transform .26s cubic-bezier(.28, .4, .44, .93), box-shadow .26s;
+            position: relative;
+            backdrop-filter: blur(9px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark .burger-card {
+            background: rgba(44, 35, 20, 0.82);
+            color: #fff;
+        }
+
+        .burger-card:hover {
+            transform: scale(1.04) translateY(-7px) rotate(-2deg);
+            box-shadow: 0 17px 26px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--primary);
+        }
+
+        .burger-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            filter: brightness(.97) contrast(1.03);
+            border-radius: 14px 14px 0 0;
+            transition: filter .2s;
+        }
+
+        .burger-card:hover img {
+            filter: brightness(1.05) contrast(1.05) saturate(1.07);
+        }
+
+        .card-content {
+            flex: 1;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .burger-card h3 {
+            font-size: 1.25rem;
+            margin: 3px 0;
+            font-weight: bold;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: 17px;
+            right: 18px;
+            background: var(--primary);
+            color: #fff;
+            padding: 7px 16px;
+            border-radius: 22px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.11);
+            letter-spacing: .5px;
+            z-index: 2;
+        }
+
+        .order-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 11px 0;
+            margin: 10px 8px 0 0;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background var(--transition), transform .13s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            letter-spacing: 1px;
+        }
+
+        .order-btn:hover {
+            background: #e5533d;
+            transform: scale(1.04);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.48);
+            z-index: 2200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 16px;
+            max-width: 370px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 22px 34px rgba(0, 0, 0, 0.12);
+            animation: fadeIn .21s;
+        }
+
+        body.dark .modal-content {
+            background: #232323;
+            color: #fff;
+        }
+
+        .close-modal {
+            border: none;
+            background: transparent;
+            font-size: 2.1rem;
+            color: var(--primary);
+            position: absolute;
+            right: 36px;
+            top: 34px;
+            cursor: pointer;
+        }
+
+        .back-top {
+            position: fixed;
+            bottom: 23px;
+            right: 29px;
+            width: 46px;
+            height: 46px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            box-shadow: 0 3px 8px #2224;
+            cursor: pointer;
+            transition: background .22s;
+            z-index: 999;
+        }
+
+        .back-top:hover {
+            background: #d44218;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+                margin-top: 60px;
+            }
+
+            .burger-card img {
+                height: 130px;
+            }
+
+            .container {
+                gap: 12px;
+            }
+
+            .modal-content {
+                padding: 28px 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a class="logo" href="#">🍔 BurgerMenu</a>
+        <ul class="nav-menu" id="mainMenu">
+            <li><a href="#burgers">Menu</a></li>
+            <li><a href="#">Deals</a></li>
+            <li><a href="#">Catering</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="toggle-theme" id="toggleTheme" title="Toggle light/dark">
+            <i class="fa fa-sun"></i>
+        </div>
+    </nav>
+    <h1 id="burgers">🍔 Our Juicy Burgers</h1>
+    <div class="container" id="burgerCards">
+        <!-- Burger cards will be generated here -->
+    </div>
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <h2>Order Placed!</h2>
+            <p>Thank you for ordering. Enjoy your burger 🍔!</p>
+        </div>
+    </div>
+    <button class="back-top" title="Back to top" id="backTop"><i class="fa fa-arrow-up"></i></button>
+    <script>
+        // Advanced UI dynamic burger fetch and interactivity
+
+        const url = `https://free-food-menus-api-two.vercel.app/burgers?limit=10`;
+        const cardsContainer = document.getElementById('burgerCards');
+        const modal = document.getElementById('orderModal');
+        const closeModal = document.getElementById('closeModal');
+
+        // Helper for missing props
+        function withFallback(val, fallback) {
+            return (typeof val !== "undefined" && val !== null && val !== "") ? val : fallback;
+        }
+
+        async function fetchAndFillBurgers() {
+            try {
+                cardsContainer.innerHTML = "<div style='text-align:center;color:#888;'>Loading burgers...</div>";
+                const res = await fetch(url);
+                const data = await res.json();
+                cardsContainer.innerHTML = "";
+
+                data.forEach((item, idx) => {
+                    const name = withFallback(item.name, "Burger");
+                    const desc = withFallback(item.desc, item.dsc || "Juicy burger loaded with flavor!");
+                    const img = withFallback(item.img, "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=450&q=80");
+                    let price = withFallback(item.price, 180);
+                    price = isNaN(price) ? price : `₹${price}`;
+
+                    const card = document.createElement('div');
+                    card.className = 'burger-card';
+                    card.innerHTML = `
+                        <img src="${img}" alt="${name}" loading="lazy">
+                        <span class="price-badge">${price}</span>
+                        <div class="card-content">
+                          <h3>${name}</h3>
+                          <p>${desc}</p>
+                          <button class="order-btn" data-idx="${idx}">Order Now</button>
+                        </div>
+                    `;
+                    cardsContainer.appendChild(card);
+                });
+
+                // Now rewire the new "Order Now" buttons for modal popup
+                document.querySelectorAll('.order-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        modal.style.display = 'flex';
+                        setTimeout(() => { modal.style.display = 'none'; }, 1400);
+                    };
+                });
+            } catch (e) {
+                cardsContainer.innerHTML = `<div style="padding:3em;text-align:center;color:#d32f2f;">Failed to load burgers.<br>${e.message}</div>`;
+            }
+        }
+        fetchAndFillBurgers();
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('mainMenu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-menu li a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 751) {
+                    navMenu.classList.remove('active'); hamburger.classList.remove('active');
+                }
+            });
+        });
+
+        // Modal close logic
+        closeModal.onclick = () => modal.style.display = 'none';
+        window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+        // Back to top
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', () => {
+            backTop.style.display = window.scrollY > 200 ? 'flex' : 'none';
+        });
+        backTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Light/dark mode
+        const toggleTheme = document.getElementById('toggleTheme');
+        toggleTheme.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            toggleTheme.innerHTML = document.body.classList.contains('dark')
+                ? '<i class="fa fa-moon"></i>'
+                : '<i class="fa fa-sun"></i>';
+        });
+    </script>
+</body>
+
+</html>
